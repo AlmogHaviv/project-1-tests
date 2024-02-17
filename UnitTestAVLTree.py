@@ -1,5 +1,7 @@
 import unittest
-from avl_template import AVLTree, AVLNode
+from AVLTree import AVLTree, AVLNode
+from tests import tests
+
 
 
 class TestAVLTree(unittest.TestCase):
@@ -20,10 +22,11 @@ class TestAVLTree(unittest.TestCase):
         self.assertEqual(avl_tree.search(7).value, "seven")
         self.assertEqual(avl_tree.search(2).value, "two")
         self.assertEqual(avl_tree.search(4).value, "four")
+        self.assertEqual(avl_tree.size, 5)
+
 
         # Search for a non-existing value
         self.assertIsNone(avl_tree.search(6))
-
 
     def test_avl_insert_rebalance(self):
         avl_tree = AVLTree()
@@ -50,7 +53,7 @@ class TestAVLTree(unittest.TestCase):
         self.assertEqual(avl_tree.root.get_value(), "seven")
         self.assertEqual(avl_tree.root.get_left().get_value(), "six")
         self.assertEqual(avl_tree.root.get_right().get_value(), "eight")
-    
+
     def test_avl_insert_rebalance3(self):
         avl_tree = AVLTree()
 
@@ -58,7 +61,6 @@ class TestAVLTree(unittest.TestCase):
         avl_tree.insert(6, "six")
         avl_tree.insert(8, "eight")
         avl_tree.insert(7, "seven")
-        
 
         # Check that the AVL tree is balanced after insertions
         self.assertEqual(avl_tree.root.get_value(), "seven")
@@ -66,33 +68,29 @@ class TestAVLTree(unittest.TestCase):
         self.assertEqual(avl_tree.root.get_right().get_value(), "eight")
 
     def test_avl_insert_rebalance4(self):
-            avl_tree = AVLTree()
+        avl_tree = AVLTree()
 
-            # Insert nodes into the AVL tree to test rebalancing
-            avl_tree.insert(8, "eight")
-            avl_tree.insert(6, "six")
-            avl_tree.insert(7, "seven")
-            
+        # Insert nodes into the AVL tree to test rebalancing
+        avl_tree.insert(1, "eight")
+        avl_tree.insert(2, "six")
+        res = avl_tree.insert(3, "seven")
+        self.assertEqual(res, 2)
+        # Check that the AVL tree is balanced after insertions
 
-            # Check that the AVL tree is balanced after insertions
-            self.assertEqual(avl_tree.root.get_value(), "seven")
-            self.assertEqual(avl_tree.root.get_left().get_value(), "six")
-            self.assertEqual(avl_tree.root.get_right().get_value(), "eight")
-    
-    def test_avl_insert_rebalance4(self):
-            avl_tree = AVLTree()
 
-            # Insert nodes into the AVL tree to test rebalancing
-            avl_tree.insert(8, "eight")
-            avl_tree.insert(6, "six")
-            avl_tree.insert(7, "seven")
-            
+    def test_avl_insert_rebalance5(self):
+        avl_tree = AVLTree()
 
-            # Check that the AVL tree is balanced after insertions
-            self.assertEqual(avl_tree.root.get_value(), "seven")
-            self.assertEqual(avl_tree.root.get_left().get_value(), "six")
-            self.assertEqual(avl_tree.root.get_right().get_value(), "eight")
-    
+        # Insert nodes into the AVL tree to test rebalancing
+        avl_tree.insert(8, "eight")
+        avl_tree.insert(6, "six")
+        avl_tree.insert(7, "seven")
+
+        # Check that the AVL tree is balanced after insertions
+        self.assertEqual(avl_tree.root.get_value(), "seven")
+        self.assertEqual(avl_tree.root.get_left().get_value(), "six")
+        self.assertEqual(avl_tree.root.get_right().get_value(), "eight")
+
     def test_avl_insert_rebalance_large_tree(self):
         avl_tree = AVLTree()
 
@@ -110,7 +108,6 @@ class TestAVLTree(unittest.TestCase):
         self.assertEqual(avl_tree.search(1).value, "1")
         self.assertEqual(avl_tree.search(5).value, "5")
         self.assertEqual(avl_tree.search(7).value, "7")
-    
 
     def test_avl_delete_leaf_node(self):
         avl_tree = AVLTree()
@@ -128,7 +125,6 @@ class TestAVLTree(unittest.TestCase):
 
     def test_avl_delete_node_with_one_child(self):
         avl_tree = AVLTree()
-
 
         # Insert nodes into the AVL tree
         avl_tree.insert(5, "five")
@@ -192,11 +188,10 @@ class TestAVLTree(unittest.TestCase):
         self.assertEqual(avl_tree.root.right.right.get_value(), "10")
         self.assertEqual(avl_tree.root.right.get_value(), "8")
 
-
     def test_avl_delete_node_with_two_children_ten(self):
         avl_tree = AVLTree()
 
-         # Insert nodes into the AVL tree
+        # Insert nodes into the AVL tree
         avl_tree.insert(15, "15")
         avl_tree.insert(8, "8")
         avl_tree.insert(22, "22")
@@ -210,8 +205,6 @@ class TestAVLTree(unittest.TestCase):
         avl_tree.insert(9, "9")
         avl_tree.insert(13, "13")
 
-
-
         # Delete a node with two children
         ans = avl_tree.delete(avl_tree.search(11))
 
@@ -223,9 +216,6 @@ class TestAVLTree(unittest.TestCase):
         self.assertEqual(avl_tree.root.get_right().get_right().get_value(), "24")
         self.assertEqual(avl_tree.root.get_left().get_right().get_right().get_value(), "13")
         self.assertEqual(ans, 3)
-
-
-
 
     def test_avl_delete_node_with_two_rotations(self):
         avl_tree = AVLTree()
@@ -244,8 +234,6 @@ class TestAVLTree(unittest.TestCase):
         avl_tree.insert(9, "9")
         avl_tree.insert(13, "13")
 
-
-
         # Delete a node with two children
         avl_tree.delete(avl_tree.search(24))
 
@@ -254,7 +242,7 @@ class TestAVLTree(unittest.TestCase):
         self.assertEqual(avl_tree.root.get_value(), "11")
         self.assertEqual(avl_tree.root.get_left().get_value(), "8")
         self.assertEqual(avl_tree.root.get_right().get_right().get_value(), "20")
-    
+
     def test_avl_avl_to_array(self):
         avl_tree = AVLTree()
 
@@ -266,13 +254,132 @@ class TestAVLTree(unittest.TestCase):
         # Delete a node with two children
         arr = avl_tree.avl_to_array()
 
-        print(arr)
-
         # Check that the node has been deleted and the successor node has taken its place
         self.assertEqual(arr, nodes)
 
+    def test_join(self):
+        # Create two AVL trees
+        tree1 = AVLTree()
+        tree2 = AVLTree()
 
-    
+        # Insert some nodes into the AVL trees
+        tree1.insert(3, "three")
+        tree1.insert(5, "five")
+        tree1.insert(7, "seven")
+
+        tree2.insert(10, "ten")
+        tree2.insert(12, "twelve")
+        tree2.insert(15, "fifteen")
+
+        # Join tree1 with tree2
+        height_difference = tree1.join(tree2, 8, "eight")
+
+        # Check if the join operation was successful
+        self.assertEqual(height_difference, 1)
+        self.assertEqual(tree1.root.get_value(), "eight")
+
+    def test_join1(self):
+        avl_tree1 = AVLTree()
+        avl_tree2 = AVLTree()
+
+        # Insert nodes into the AVL tree
+        nodes1 = [(i, str(i)) for i in range(1, 3)]  # Inserting numbers 1 to 10
+        for key, value in nodes1:
+            avl_tree1.insert(key, value)
+
+        nodes2 = [(i, str(i)) for i in range(4, 12)]  # Inserting numbers 1 to 10
+        for key, value in nodes2:
+            avl_tree2.insert(key, value)
+
+        res = avl_tree1.join(avl_tree2, 3, "3")
+
+        # Check that the node has been deleted and the successor node has taken its place
+        self.assertEqual(res, 3)
+        self.assertEqual(avl_tree1.root.get_value(), "7")
+        self.assertEqual(avl_tree1.root.right.get_value(), "9")
+        self.assertEqual(avl_tree1.root.left.get_value(), "3")
+        self.assertEqual(avl_tree1.root.left.right.get_value(), "5")
+        self.assertEqual(avl_tree1.root.left.left.get_value(), "1")
+    def test_join2(self):
+        # Create two AVL trees
+        tree1 = AVLTree()
+        tree2 = AVLTree()
+
+        # Insert some nodes into the AVL trees
+        tree1.insert(2, "2")
+
+
+        tree2.insert(5, "5")
+        tree2.insert(4, "4")
+
+
+        # Join tree1 with tree2
+        height_difference = tree1.join(tree2, 3, "3")
+
+        # Check if the join operation was successful
+        self.assertEqual(height_difference, 2)
+        self.assertEqual(tree1.root.get_value(), "3")
+        self.assertEqual(tree1.root.left.get_value(), "2")
+        self.assertEqual(tree1.root.right.get_key(), 5)
+        self.assertEqual(tree1.root.right.left.get_value(), "4")
+
+
+
+    def test_split1(self):
+        tree1 = AVLTree()
+
+        # Insert nodes into the AVL tree
+        tree1.insert(4, "4")
+        tree1.insert(2, "2")
+        tree1.insert(5, "5")
+        tree1.insert(1, "1")
+        tree1.insert(3, "3")
+        x = tree1.search(3)
+
+        res = tree1.split(x)
+
+        # Check that the node has been deleted and the successor node has taken its place
+        self.assertEqual(res[0].root.key, 1)
+        self.assertEqual(res[1].root.key, 5)
+        self.assertEqual(res[0].root.right.key, 2)
+        self.assertEqual(res[1].root.left.key, 4)
+
+    def test_split2(self):
+        tree1 = AVLTree()
+
+        # Insert nodes into the AVL tree
+        tree1.insert(6, "4")
+        tree1.insert(2, "2")
+        tree1.insert(8, "5")
+        tree1.insert(1, "1")
+        tree1.insert(4, "3")
+        tree1.insert(7, "4")
+        tree1.insert(9, "2")
+        tree1.insert(3, "5")
+        tree1.insert(5, "1")
+        x = tree1.search(4)
+
+        res = tree1.split(x)
+
+        # Check that the node has been deleted and the successor node has taken its place
+        self.assertEqual(res[0].root.key, 2)
+        self.assertEqual(res[1].root.key, 8)
+        self.assertEqual(res[0].root.right.key, 3)
+        self.assertEqual(res[0].root.left.key, 1)
+        self.assertEqual(res[1].root.left.key, 6)
+        self.assertEqual(res[1].root.right.key, 9)
+
 
 if __name__ == '__main__':
-   unittest.main()
+    print("running tests from outsource")
+    print("running tests.testInsertDelete()")
+    tests.testInsertDelete()
+    print("running tests.test_avl_to_array()")
+    tests.test_avl_to_array()
+    print("running tests.test_join()")
+    tests.test_join()
+    print("running tests.test_split()")
+    tests.test_split()
+    print("running unittest")
+    unittest.main()
+    
